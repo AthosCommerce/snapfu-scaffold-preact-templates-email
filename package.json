@@ -1,0 +1,85 @@
+{
+	"name": "{{ snapfu.name }}",
+	"author": "{{ snapfu.author }}",
+	"version": "0.1.0",
+	"license": "MIT",
+	"main": "index.js",
+	"private": true,
+	"scripts": {
+		"analyze": "webpack --config webpack.modern.js --analyze",
+		"analyze:universal": "webpack --config webpack.universal.js --analyze",
+		"build": "rm -rf ./dist && webpack --config webpack.modern.js && webpack --config webpack.universal.js",
+		"test": "echo \"No tests for Snap template project\"",
+		"lighthouse": "lhci --config ./tests/lighthouse/lighthouserc.js autorun",
+		"clean": "rm -rf ./node_modules && rm -f ./package-lock.json",
+		"dev": "kill $(lsof -ti:3333,8888); webpack serve --config webpack.dev.js",
+		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,json}\"",
+		"lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\""
+	},
+	"athos": {
+		"version": "1.7.0",
+		"siteId": {
+			"{{ snapfu.siteId }}": {
+				"name": "{{ snapfu.name }}"
+			}
+		},
+		"framework": "preact",
+		"distribution": "templates",
+		"updates": [
+			"all"
+		],
+		"tags": [
+			"templates",
+			"{{ snapfu.variables.platform }}"
+		],
+		"scaffold": "snapfu-scaffold-preact-templates"
+	},
+	"prettier": "@searchspring/prettier",
+	"dependencies": {
+		"@athoscommerce/snap-preact": "1.7.0",
+		"mobx": "6.15.1",
+		"mobx-react-lite": "4.1.1",
+		"preact": "10.28.4"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.29.0",
+		"@babel/plugin-transform-react-jsx": "^7.28.6",
+		"@babel/plugin-transform-runtime": "^7.29.0",
+		"@babel/preset-env": "^7.29.0",
+		"@babel/preset-react": "^7.28.5",
+		"@babel/runtime": "^7.28.6",
+		"@lhci/cli": "^0.15.1",
+		"@searchspring/browserslist-config-snap": "^1.0.6",
+		"@searchspring/prettier": "^1.0.2",
+		"@typescript-eslint/parser": "^8.56.1",
+		"babel-loader": "^10.0.0",
+		"core-js": "^3.48.0",
+		"css-loader": "^7.1.4",
+		"eslint": "^9.39.3",
+		"eslint-plugin-react": "^7.37.5",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.3.2",
+		"prettier": "^3.8.1",
+		"ts-loader": "9.5.4",
+		"typescript-eslint": "^8.56.1",
+		"webpack": "^5.105.4",
+		"webpack-bundle-analyzer": "^5.2.0",
+		"webpack-cli": "^6.0.1",
+		"webpack-dev-server": "^5.2.3",
+		"webpack-merge": "^6.0.1",
+		"whatwg-fetch": "3.6.20"
+	},
+	"lint-staged": {
+		"./package.json": [
+			"prettier --write"
+		],
+		"./src/**/*.{js,jsx,ts,tsx}": [
+			"prettier --write",
+			"eslint --fix"
+		]
+	},
+	"browserslist": {
+		"modern": "extends @searchspring/browserslist-config-snap/modern",
+		"universal": "extends @searchspring/browserslist-config-snap/universal"
+	}
+}

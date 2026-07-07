@@ -1,0 +1,137 @@
+<html class="ss__pike">
+<head>
+	<meta charset="utf-8">
+	<title>Email Recs</title>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="https://snapui.athoscommerce.io/favicon.svg">
+	<link href="//fonts.googleapis.com/css?family=Fjalla+One|Roboto:400,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.4.2/css/all.css"
+		integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+	<link rel="stylesheet" href="website.css">
+
+	<script>
+		// clear our cookies to remove from the request
+		document.cookie = 'ssShopperId=; Max-Age=-99999999;';
+		document.cookie = 'ssViewedProducts=; Max-Age=-99999999';
+		document.cookie = 'ssCartProducts=; Max-Age=-9999999';
+
+		const siteID = 'atkzs2';
+		const profile = "email";
+		const results = [
+			{
+				id: "52955932557678",
+				mappings: {
+					core: {
+						uid: "52955932557678",
+						sku: "VW1982-XBO-IN",
+						available: true,
+						name: "Apex Bottle",
+						url: "/products/apex-bottle?variant=52955932557678",
+						parentId: "14870399189358",
+						parentImageUrl: "https://cdn.shopify.com/s/files/1/0916/6477/7582/files/apex-bottle-indigo.png?v=1762823848",
+						price: 20,
+						msrp: 25.50,
+						rating: 5,
+						ratingCount: 237,
+						imageUrl: "https://cdn.shopify.com/s/files/1/0916/6477/7582/files/apex-bottle-indigo_600x600.png?v=1762823848",
+						secureImageUrl: "https://cdn.shopify.com/s/files/1/0916/6477/7582/files/apex-bottle-indigo.png?v=1762823848",
+						thumbnailImageUrl: "https://cdn.shopify.com/s/files/1/0916/6477/7582/files/apex-bottle-indigo_600x600.png?v=1762823848",
+						brand: "VersaWearCo",
+						caption: "Captions!"
+					}
+				},
+				attributes: {
+					collection_handle: [
+						"outdoor",
+						"studio",
+						"accessories",
+						"bottles",
+						"best-sellers",
+						"all"
+					],
+					color: [
+						"Indigo"
+					],
+					product_type_unigram: "bottle",
+					ss_image: "https://cdn.shopify.com/s/files/1/0916/6477/7582/files/apex-bottle-indigo_600x600.png?v=1762823848",
+					title: "Apex Bottle"
+				},
+				custom: {},
+				quantity: 1
+			}
+		];
+
+		const recommendResponse = [{"results":results,"profile":{"tag":profile}}];
+		const profileResponse = {"profile":{"tag":profile,"display":{"template":{"component":"SnapTemplatesEmailDefault"},"templateParameters":{}}}};
+
+		const profileKey = `/v1/profile{"tag":"${profile}","siteId":"${siteID}","branch":"production"}`;
+		const recommendKey = `/v1/recommend{"tags":["${profile}"],"limits":[20],"siteId":"${siteID}"}`;
+
+		const profileWildCardKey = `/v1/profile/*`;
+		const recommendWildCardKey = `/v1/recommend/*`;
+
+		document.addEventListener('RecsReady', () => {
+			console.log('take the pic now');
+			window.RecsReady = true;
+		});
+	</script>
+
+	<script id="athos-context" src="bundle.js">
+		config = {
+			mode: 'production',
+			instantiators: {
+				recommendation: {
+					config: {
+						branch: "production"
+					}
+				}
+			},
+			client: {
+				config: {
+					recommend: {
+						cache: {
+							entries: {
+								[profileKey]: profileResponse,
+								[recommendKey]: recommendResponse,
+								[profileWildCardKey]: profileResponse,
+								[recommendWildCardKey]: recommendResponse,
+							}
+						},
+						
+					}
+				}
+			}
+		}
+	</script>
+
+	<script>
+		let ImagesLoadedEvent = new CustomEvent("RecsReady");
+		document.addEventListener('DOMContentLoaded', () => {
+			setTimeout(() => {Promise.all(Array.from(document.images).map(img => {
+				if (img.complete)
+					return Promise.resolve(img.naturalHeight !== 0);
+				return new Promise(resolve => {
+						img.addEventListener('load', () => resolve(true));
+						img.addEventListener('error', () => resolve(false));
+					});
+				})).then(results => {
+					if (results.every(res => res)) {
+						console.log(`all ${document.images.length} images loaded successfully`);
+						document.dispatchEvent(ImagesLoadedEvent);
+
+					}else {
+						console.log(`some images failed to load, all ${document.images.length} are finished`);
+						document.dispatchEvent(ImagesLoadedEvent);
+
+					}
+				});
+			},500)});
+	</script>
+</head>
+
+<body class="ss-lite-site">
+	<script type="athos/recommend" profile="email"></script>
+</body>
+
+</html>
