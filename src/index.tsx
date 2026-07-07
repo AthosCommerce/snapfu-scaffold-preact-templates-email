@@ -1,7 +1,6 @@
 import { SnapTemplates } from '@athoscommerce/snap-preact';
 import { globalStyles } from './styles';
 
-
 const templatesConfig: SnapTemplatesConfig = {
 	config: {
 		siteId: '{{ snapfu.siteId }}',
