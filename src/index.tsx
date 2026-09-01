@@ -1,7 +1,7 @@
-import { SnapTemplates } from '@athoscommerce/snap-preact';
+import { SnapTemplates, validateTemplatesConfig } from '@athoscommerce/snap-preact';
 import { globalStyles } from './styles';
 
-const templatesConfig: SnapTemplatesConfig = {
+const templatesConfig = validateTemplatesConfig({
 	config: {
 		siteId: '{{ snapfu.siteId }}',
 		platform: '{{ snapfu.variables.platform }}',
@@ -28,6 +28,6 @@ const templatesConfig: SnapTemplatesConfig = {
 		// 	},
 		// },
 	},
-};
+});
 
 new SnapTemplates(templatesConfig);
