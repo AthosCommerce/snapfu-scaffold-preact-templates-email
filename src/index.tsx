@@ -3,7 +3,6 @@ import { globalStyles } from './styles';
 
 const templatesConfig = validateTemplatesConfig({
 	config: {
-		siteId: '{{ snapfu.siteId }}',
 		platform: '{{ snapfu.variables.platform }}',
 		language: 'en',
 		currency: 'usd',

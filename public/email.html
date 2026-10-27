@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="website.css">
 
     <script id="athos-context" src="bundle.js">
+		siteId = '{{ snapfu.siteId }}';
 		config = {
 			mode: 'production',
 			instantiators: {
@@ -28,10 +29,13 @@
 		document.cookie = 'ssShopperId=; Max-Age=-99999999;';
 		document.cookie = 'ssViewedProducts=; Max-Age=-99999999';
 		document.cookie = 'ssCartProducts=; Max-Age=-9999999';
+		document.cookie = 'athosShopperId=; Max-Age=-99999999;';
+		document.cookie = 'athosViewedProducts=; Max-Age=-99999999';
+		document.cookie = 'athosCartProducts=; Max-Age=-9999999';
 
         /* Template Mockup Configuration Section */
         const config = {
-            siteId: athos.client.globals.siteId, // siteId should match what is in index.js but can be hard coded here as needed
+            siteId: athos.client.globals.siteId, // comes from siteId in the athos-context script above but can be hard coded here as needed
             profile: "default-trending" // must also update athos/recommend script profile to match
         };
 
@@ -85,16 +89,14 @@
 		// ];
 
 		const profileResponse = {"profile":{"tag":config.profile,"display":{"template":{"component":"SnapTemplatesEmailDefault"},"templateParameters":{}}}};
-		const profileKey = `/v1/profile{"tag":"${config.profile}","siteId":"${config.siteID}","branch":"production"}`;
+		const profileKey = `/v1/profile/{"tag":"${config.profile}","siteId":"${config.siteId}","branch":"production"}`;
 		const profileWildCardKey = `/v1/profile/*`;
 		athos.client.requesters.recommend.cache.set(profileKey, profileResponse);
 		athos.client.requesters.recommend.cache.set(profileWildCardKey, profileResponse);
 
         if (config.results) {
             const recommendWildCardKey = `/v1/recommend/*`;
-            const recommendKey = `/v1/recommend{"tags":["${config.profile}"],"limits":[20],"siteId":"${config.siteID}"}`;
             const recommendResponse = [{"results":config.results,"profile":{"tag":config.profile}}];
-            athos.client.requesters.recommend.cache.set(recommendKey, recommendResponse);
             athos.client.requesters.recommend.cache.set(recommendWildCardKey, recommendResponse);
         }
 
