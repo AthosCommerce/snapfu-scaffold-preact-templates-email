@@ -32,7 +32,7 @@
 			"templates",
 			"{{ snapfu.variables.platform }}"
 		],
-		"scaffold": "snapfu-scaffold-preact-templates"
+		"scaffold": "snapfu-scaffold-preact-templates-email"
 	},
 	"prettier": "@searchspring/prettier",
 	"dependencies": {
